@@ -1,0 +1,65 @@
+Introduction
+For this assignment, the goal was to develop an effective document summarization pipeline using large language models (LLMs). Document summarization is a critical task in natural language processing (NLP) that involves condensing a document into a shorter form while retaining its essential information. I chose model BART (Bidirectional and Auto-Regressive Transformers)for this task, which is known for its capability in text generation and summarization. 
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Methodology
+Document Selection
+As for document selection a paragraph from one of the Harry Potter books is used. This document is concise and substantial for demonstration that the program will generate a proper summary using the necessary tools.
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+LLM Selection
+Selected Model:
+
+Model: facebook/bart-large-cnn
+Justification:
+Capabilities: BART (Bidirectional and Auto-Regressive Transformers) is effective for text generation and summarization tasks. It combines the strengths of both bidirectional context (from BERT) and autoregressive text generation (from GPT).
+Suitability: BART's architecture is particularly well-suited for summarization tasks due to its ability to generate coherent and contextually relevant summaries. Its pre-trained model, facebook/bart-large-cnn, is fine-tuned on summarization tasks, making it a strong choice for this assignment.
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Chunking Strategy
+
+Chunk Size:
+Maximum Length: BART has a token limit of 1024 tokens. For documents longer than this limit, we divide them into chunks of up to 1000 tokens to ensure adequate space for tokenization and model overhead.
+Implementation:
+Tokenization: The document is tokenized into chunks that fit within BART’s token limit.
+Processing: Each chunk is processed separately to generate summaries.
+Combining: The summaries of individual chunks are combined to produce a final summary.
+Reasoning:
+
+Effectiveness: This approach ensures that the entire document is processed without losing crucial information. Chunking helps in managing long documents that exceed the model's token limit, while the map-reduce approach ensures that the context within each chunk is preserved.
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Summarization Technique
+Technique Implemented:
+
+Approach: Map-Reduce Summarization
+Map: Summarize each chunk individually.
+Reduce: Combine these summaries to form a final cohesive summary.
+Comparison:
+
+Stuffing:
+Pros: Simple to implement. Suitable for short documents.
+Cons: May lose context and coherence if the document is long and not all information fits within the token limit.
+Map-Reduce:
+Pros: Maintains context better by processing and summarizing smaller parts of the document separately.
+Cons: More complex, as it requires combining summaries from multiple chunks.
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Prompt Engineering
+Defined Prompts:
+
+Abstract: "Generate a concise abstract for the following text: {document}"
+Summary: "Summarize the following text in detail: {document}"
+Conclusion: "Generate a concluding statement for the following text: {document}"
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Reducing Hallucinations
+Techniques Implemented:
+Beam Search: Used with parameters to generate multiple candidate summaries and select the most likely one.
+Prompt Refinement: Adjusted prompts to be specific and clear, reducing ambiguity in the generated content.
+Post-Processing Checks: Implemented checks to verify that the generated summaries accurately reflect the content of the document.
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+8. Defense of Approach
+-> Model Choice: BART was selected due to its effectiveness in summarization tasks and its pre-training on similar tasks, ensuring high-quality outputs.
+-> Chunking Strategy: Necessary for handling long documents within BART's token limits while maintaining context and coherence through the map-reduce approach.
+-> Prompt Engineering: Tailored prompts ensure that the summaries meet specific needs (abstract, summary, conclusion) and guide the model to generate focused outputs.
+-> Hallucination Reduction: Techniques like beam search and prompt refinement improve the accuracy and relevance of generated summaries.
+-> Parameter Tuning: Adjusting parameters like top-p, top-k, and temperature ensures better control over the output quality, reducing hallucinations and improving coherence.
+
