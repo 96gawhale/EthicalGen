@@ -1,0 +1,22 @@
+// Go to the virtual environment created by "myenv"
+command:
+	source myenv/bin/activate
+----------------------------------------------------------------------------------------
+Or one can create his own environment. Use instruct file to create one.
+
+If you create a new environment, install dependencies for transformer and torch
+
+Use the commands:
+
+For Transformer:
+	pip install transformers
+
+For Torch:
+	pip install torch torchvision torchaudio
+-----------------------------------------------------------------------------------------
+//Now after all this you can execute the program "summary.py"
+
+Parameters of execution: python summary.py doc
+
+-summary.py is the program
+-doc is the document to be summarised. (You can give any documnet)
